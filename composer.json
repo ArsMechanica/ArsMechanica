@@ -1,21 +1,24 @@
 {
-    "name": "arsmechanica/mainlib",
-    "description": "test",
+    "name": "arsmechanica/arsmechanica",
     "type": "library",
+    "description": "test",
+    "keywords": ["test", "test2"],
+    "homepage": "arsmechanica.ru",
     "license": "MIT",
     "authors": [
         {
-            "name": "Arseny",
-            "email": "ARSENY@ars-mechanica.ru"
+            "name": "Arseny Sukhanov",
+            "email": "arseny@ars-mechanica.ru"
         }
     ],
-    "minimum-stability": "beta",
-   	"require":{
-        "php":">=7.1.0"
+    "require": {
+        "php": ">=7.1.0",
+        "psr/container": "^1.0"
     },
-	"autoload":{
-        "psr-0":{
-            "ArsMechanica":""
-        }
+    "require-dev": {
+
+    },
+    "autoload": {
+        "psr-0": { "ArsMechanica": "src/" }
     }
 }
