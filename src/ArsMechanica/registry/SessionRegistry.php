@@ -27,7 +27,7 @@ class SessionRegistry extends AbstractRegistry  {
 
     public function unset($key):void {
         if(self::getInstance()->isSet($key)) {
-            $this->unset($_SESSION[__CLASS__][$key]);
+            unset($_SESSION[__CLASS__][$key]);
         }
     }
 

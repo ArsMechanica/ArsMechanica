@@ -1,19 +1,21 @@
 <?php
-namespace User;
-class UserContactList 
-extends \DomainModel\BaseModel {
+namespace ArsMechanica\User;
 
-protected $user_id					= -1;
-protected $contact_list_arr			= array();
+class UserContactList
+{
+    protected $userId					= -1;
+    protected $contact_list_arr			= array();
 
 	
-public function __construct() {
+    public function __construct()
+    {
 	}
 	
 
 
-public function toStdClass() {
-	$stdObj = new \stdClass;
-	return $stdObj;
+    public function toStdClass()
+    {
+        $stdObj = new \stdClass;
+        return $stdObj;
 	}
 }

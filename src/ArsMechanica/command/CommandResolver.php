@@ -22,7 +22,7 @@ class CommandResolver {
 
 		$className = '\Command\\' . $cmd;
 		if(class_exists($className)) {
-			$Command = new ReflectionClass($className);
+			$Command = new $className();
 
             print_r($Command);
 

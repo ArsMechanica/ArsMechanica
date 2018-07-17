@@ -18,8 +18,5 @@ class DefaultCommand extends Command{
         catch (\Exception $e) {
             $Request->addError('Случилась предсказуемая херня.');
         }
-        echo '<pre>';
-        print_r($Request);
-        echo '</pre>';
     }
 }

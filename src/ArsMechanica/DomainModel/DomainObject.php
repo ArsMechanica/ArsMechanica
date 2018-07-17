@@ -21,9 +21,8 @@ extends AbstractObject
 	protected $CreateDateTime;
 	protected $EditUser;
 	protected $EditDateTime;
-	
-	
-	protected function __construct()
+
+	public function __construct()
     {
 		$this->Key = new Key();
 	}
@@ -78,17 +77,17 @@ extends AbstractObject
 	public function loadStatus(int $statusId, string $statusName):void
     {
 		$this->statusId = $statusId;
-		$this->statusName = $statusName;
+		$this->status = $statusName;
 	}
 	
 	public function getStatusId():int
     {
-		return $this->status_id;
+		return $this->statusId;
     }
 	
 	public function getStatus():string
     {
-		return $this->statusName;
+		return $this->status;
     }
 
 	public function setName($name):void
@@ -111,13 +110,13 @@ extends AbstractObject
         }
 			
 		$this -> typeId = $typeId;
-		$this -> typeName = $typeRes->fetch_object()->type_name;
+		$this -> type = $typeRes->fetch_object()->type_name;
 		}
 	
-	public function loadType(int $typeId, string $typeName)
+	public function loadType(int $typeId, string $type)
     {
 		$this->typeId = $typeId;
-		$this->typeName = $typeName;
+		$this->type = $type;
     }
 
 	public function	getTypeId():int
@@ -125,9 +124,9 @@ extends AbstractObject
 		return $this -> typeId;
     }
 
-	public function	getTypeName():string
+	public function	getType():string
     {
-		return $this -> typeName;
+		return $this -> type;
     }
 	
 	public function	getSubTypeId():int
@@ -143,7 +142,7 @@ extends AbstractObject
 		return $this->CreateUser;
     }
 
-	final public function getEditUser():\ArsMechanica\User\User
+	final public function getEditUser():User
     {
 		if(empty($this->EditUser)) {
 			$this->EditUser = User::CreateShortForm();
@@ -171,9 +170,9 @@ extends AbstractObject
     {
 		$stdObj = new \stdClass;
 		$stdObj->key			= $this->Key->toStdClass();
-		$stdObj->view			= $this->view_bl;
-		$stdObj->name			= $this->name_str;
-		$stdObj->type_id		= $this->type_id;
+		$stdObj->status			= $this->status;
+		$stdObj->name			= $this->name;
+		$stdObj->type_id		= $this->typeId;
 		$stdObj->create_date	= $this->create_date_obj->toStdClass();
 		$stdObj->create_user	= $this->create_user_obj ->toStdClass();
 		$stdObj->edit_date		= $this->edit_date_obj->toStdClass();

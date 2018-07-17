@@ -5,6 +5,8 @@
 namespace ArsMechanica\DomainModel;
 
 class Key {
+    use \ArsMechanica\Interfaces\toJSONable;
+
 	protected $objId		= NULL;
 	protected $projectId	= NULL;
 	
@@ -41,17 +43,24 @@ class Key {
 		return $this->projectId;
 		}
 	
-	public function getUniqueKey() {
+	public function getUniqueKey():int {
 		return $this->projectId*1e8 + $this->objId;
 		}
 	
 		
 	public function equals(Key $AnotherKey) {
-		if($this->getUniqueKey() == $AnotherKey->getUniqueKey()) {
+		if($this->getUniqueKey() === $AnotherKey->getUniqueKey()) {
 			return TRUE;
 			}
 		else {
 			return FALSE;
 			}
 		}
-	}
+
+
+    public function toStdClass():\stdClass
+    {
+        $stdObj = new \stdClass();
+        return $stdObj;
+    }
+}

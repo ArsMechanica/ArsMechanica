@@ -6,12 +6,12 @@ use \ArsMechanica\Controller\Task;
 class Request
 {
     use \ArsMechanica\Interfaces\Singleton;
-    use \ArsMechanica\Common\Parametrable;
     use \ArsMechanica\Interfaces\toJSONable;
 
 
 	protected $status		= 'started';		//'Ok', 'warning', 'error'
     protected $command      = null;
+    protected $header       = '';
 	protected $properties	= [];
 	protected $okTasks 		= [];
 	protected $warningTasks = [];
@@ -33,12 +33,24 @@ class Request
             }
 			$this->properties = $_REQUEST;
         }
-		foreach($_SERVER['argv'] as $arg) {
-			if(strpos($arg, '=')) {
-				list($key, $val) = explode('=', $arg);
-				$this->addProp($key, $val);
+        if(isset($_SERVER['argv'])) {
+            foreach($_SERVER['argv'] as $arg) {
+                if (strpos($arg, '=')) {
+                    list($key, $val) = explode('=', $arg);
+                    $this->addProp($key, $val);
+                }
             }
         }
+    }
+
+    public function setHeader(string $header)
+    {
+        $this->header = $header;
+    }
+
+    public function getHeader(): string
+    {
+        return $this->header;
     }
 		
 	public function getCommand():?string
@@ -83,7 +95,12 @@ class Request
 
 	public function getProp($key)
     {
-		return $this->properties[$key];
+        if(isset($this->properties[$key])) {
+            return $this->properties[$key];
+        }
+        else {
+            return null;
+        }
 	}
 
 	public function getProps()
@@ -127,6 +144,7 @@ class Request
     {
 		$stdObj = new \stdClass();
 		$stdObj->status = $this->status;
+		$stdObj->header = $this->header;
 		$stdObj->ok_tasks = $this->okTasks;
 		$stdObj->properties = $this->properties;
 		$stdObj->warnings = $this->warningTasks;

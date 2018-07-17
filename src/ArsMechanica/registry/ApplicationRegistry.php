@@ -18,7 +18,6 @@ static function getInstance() {
 	
 public function get($key_mix) {
 	$path_str = DIR . $this->freezdir_str . $key_mix;
-	echo $path_str;
 	if(file_exists($path_str)) {
         clearstatcache();
         $mtime_int = filemtime($path_str);

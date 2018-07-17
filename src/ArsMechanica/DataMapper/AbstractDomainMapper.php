@@ -13,7 +13,7 @@ abstract class AbstractDomainMapper {
 		$this->doInsert($Object);
 		}
 
-	protected abstract function doInsert();
+	protected abstract function doInsert($Object):void;
 		
 	/*
 	public abstract function LazyLoadById(\ArsMecanika\DomainModel\Key $Key);
