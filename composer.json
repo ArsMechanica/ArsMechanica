@@ -21,4 +21,4 @@
     "autoload": {
         "psr-0": { "ArsMechanica": "src/" }
     }
-}7854
+}
