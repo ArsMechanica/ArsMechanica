@@ -2,11 +2,12 @@
 namespace ArsMechanica\Registry;
 
 use ArsMechanica\Controller\Request;
+\ArsMechanica\Interfaces\Singleton;
 
 
 class RequestRegistry extends AbstractRegistry {
 
-    use \ArsMechanica\Interfaces\Singleton;
+    use Singleton;
 
     private $RequestParametrList = [];
 

@@ -22,7 +22,7 @@ extends AbstractObject
 	protected $EditUser;
 	protected $EditDateTime;
 
-	public function __construct()
+	protected function __construct()
     {
 		$this->Key = new Key();
 	}

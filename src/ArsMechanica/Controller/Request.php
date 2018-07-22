@@ -7,17 +7,11 @@ class Request
 {
     use \ArsMechanica\Interfaces\Singleton;
     use \ArsMechanica\Interfaces\toJSONable;
+    use \ArsMechanica\Interfaces\ParameterAble;
+    use \ArsMechanica\Interfaces\NoMagic;
 
 
-	protected $status		= 'started';		//'Ok', 'warning', 'error'
     protected $command      = null;
-    protected $header       = '';
-	protected $properties	= [];
-	protected $okTasks 		= [];
-	protected $warningTasks = [];
-	protected $errorTasks 	= [];
-	
-
 
 	public function __construct()
     {
@@ -31,7 +25,10 @@ class Request
 		    if(array_key_exists('action', $_REQUEST)) {
                 $this->command = $_REQUEST['action'];
             }
-			$this->properties = $_REQUEST;
+
+            foreach ($_REQUEST as $key=>$value) {
+		        $this->addProp($key, $value);
+            }
         }
         if(isset($_SERVER['argv'])) {
             foreach($_SERVER['argv'] as $arg) {
@@ -43,102 +40,11 @@ class Request
         }
     }
 
-    public function setHeader(string $header)
-    {
-        $this->header = $header;
-    }
-
-    public function getHeader(): string
-    {
-        return $this->header;
-    }
-		
 	public function getCommand():?string
     {
 		return $this->command;
 	}
 
-    public function setStatus($status):void
-    {
-        switch ($status) {
-            case 'Ok':
-                if($this->status === 'started') {
-                    $this->status = 'Ok';
-                }
-                break;
-
-            case 'warning':
-                if($this->status === 'error') {
-                    $this->status = 'warning';
-                }
-                break;
-
-            case 'error':
-                $this->status = 'error';
-                break;
-
-            default:
-                throw new \Exception('Wrong Request status.');
-                break;
-        }
-    }
-	
-	public function getStatus():string
-    {
-		return $this->status;
-	}
-
-	public function addProp($key, $value):void
-    {
-		$this->properties[$key] = $value;
-	}
-
-	public function getProp($key)
-    {
-        if(isset($this->properties[$key])) {
-            return $this->properties[$key];
-        }
-        else {
-            return null;
-        }
-	}
-
-	public function getProps()
-    {
-		return $this->properties;
-	}
-
-    public function addOk($okText):void
-    {
-        array_push($this->okTasks, $okText);
-    }
-
-    public function getOkTasks():array
-    {
-        return $this->okTasks;
-    }
-
-    public function addWarning($warningText):void
-    {
-        array_push($this->warningTasks, $warningText);
-        $this->setStatus('warning');
-    }
-
-    public function getWarningTasks():array
-    {
-        return $this->warningTasks;
-    }
-
-    public function addError($errorText):void
-    {
-        array_push($this->errorTasks, $errorText);
-        $this->setStatus('error');
-    }
-
-    public function getErrorTasks(): array
-    {
-        return $this->errorTasks;
-    }
 
 	public function toStdClass():\stdClass
     {

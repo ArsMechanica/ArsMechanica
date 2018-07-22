@@ -2,10 +2,10 @@
 namespace ArsMechanica\DataMapper;
 
 abstract class AbstractCollection 
-implements \ArsMechanica\Interfaces\Iterator,
-	\ArsMechanica\Interfaces\toJSONable 
-
 {
+    use \ArsMechanica\Interfaces\Iterator,
+        \ArsMechanica\Interfaces\toJSONable;
+
 	protected $Maper;
 	protected $count		= 0;
 	protected $rawData		= array();
