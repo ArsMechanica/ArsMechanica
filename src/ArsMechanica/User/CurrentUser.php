@@ -57,7 +57,9 @@ class CurrentUser
 
     public function isAnonymous(): bool
     {
-        return ($this->User instanceof AnonymousUser);
+        #TODO
+        return !isset($_SESSION['user_id']);
+        //return ($this->User instanceof AnonymousUser);
     }
 
     public function checkRight(array $rights) {
